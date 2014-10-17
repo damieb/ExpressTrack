@@ -1,0 +1,26 @@
+<Alloy>
+	<TabGroup>
+		<Tab title="Gestion des suivis">
+			<Window>
+				<TableView id="results">
+					<TableViewSection id="numero">
+						<!-- TODO : Liste dynamique (switch sur l'autre TAB au click : nouvelle recherche + actualisation) -->
+						<TableViewRow title="Colissimo - 908305G454167 (Livré)" />
+						<TableViewRow title="Fedex - 905G458301674 (En cours)" />
+						<TableViewRow title="BPoste - 9850416305G47 (En attente)" />
+						<TableViewRow title="Colipost - 091678304545G (Expédié)" />
+					</TableViewSection>
+				</TableView>
+				<Button id="addCode">Ajouter un suivi</Button>
+			</Window>
+		</Tab>
+		<Tab title="Suivre un colis">
+			<Window id="searchWindow">
+				<Label id="code">Code de suivi :</Label>
+				<TextField id="codeInput" />
+				<Button id="search">Rechercher</Button>
+				<Label id="load"></Label>
+			</Window>
+		</Tab>
+	</TabGroup>
+</Alloy>

@@ -1,0 +1,24 @@
+".container": {
+	backgroundColor:"black"
+}
+
+"#code": {
+	top:"60"
+}
+
+"#codeInput": {
+	top:"75",
+	width:"200"
+}
+
+"#search": {
+	top:"120"
+}
+
+"#addCode": {
+	top: "220"
+}
+
+"#load": {
+	top: "220"
+}
