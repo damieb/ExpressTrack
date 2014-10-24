@@ -5,8 +5,11 @@
  *
  */
 var search = {
-    add: function () {},
+    add: function () {
+        "use strict";
+    },
     search: function () {
+        "use strict";
         $.search.addEventListener('click', function (e) {
             if (!helper.methods.isValid($.codeInput.value)) return alert('Veuillez indiquer votre numéro de suivi.');
             $.load.text = 'Chargement...';

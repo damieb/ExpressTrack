@@ -9,5 +9,5 @@
 Alloy.Globals.libs = {
 	helper: require('helper'),
 	transporters: require('transporters').client()
-}
+};
 

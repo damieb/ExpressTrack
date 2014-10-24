@@ -6,14 +6,19 @@
  */
 exports.methods = {
 	isValid: function(value) {
-		return (typeof value == 'undefined' || !value.length || value == null) ? false : true;
+	    "use strict";
+		return (typeof value === undefined || !value.length || value === null) ? false : true;
 	},
 	transportersRgx: {
 		colissimo: '[a-z0-9]{11,13}'
 	},
 	whatIs: function(code) {
-		if(!exports.methods.isValid(code)) return false;
-		if(new RegExp(exports.methods.transportersRgx, 'i').test(code)) {
+	    "use strict";
+		if (!exports.methods.isValid(code)) {
+		    return false;
+		}
+		//TODO explorer l'objet transportsRgx
+		if(new RegExp(exports.methods.transportersRgx[transporter], 'i').test(code)) {
 			return 'colissimo';
 		}
 		/**

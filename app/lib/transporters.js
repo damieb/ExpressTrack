@@ -6,6 +6,7 @@
  * @param  {string}     transporter The current transporter
  * @param  {string}     method      Method of request (GET, POST, DELETE, ...)
  * @param  {object}     request     Information with respect to the url
+ * @param  {string}     code        Tracking code
  * @return {function}   An object with three information: the numeric code, text response, the JSON response (or boolean)
  *
  * NOTE : Mapping request
@@ -17,8 +18,9 @@
  *  }
  *
  */
-var isValid = Alloy.Globals.libs.helper.methods.isValid;
-exports.client = function (transporter, method, request, callback) {
+var isValid = Alloy.Globals.libs.helper.methods.isValid, API, code;
+exports.client = function (transporter, method, request, callback, code) {
+    "use strict";
     if (!isValid(method) || !isValid(transporter) || !isValid(request)) {
         return {
             code: 403,
@@ -45,8 +47,8 @@ exports.client = function (transporter, method, request, callback) {
                 });
             }
         })
-    }
-    if (!new RegExp(Alloy.Globals.libs.helper.methods.transportersRgx.[transporter], 'i').test(code)) {
+    };
+    if (!new RegExp(Alloy.Globals.libs.helper.methods.transportersRgx[transporter], 'i').test(code)) {
         return callback({
             code: 403,
             state: 'Please, enter a valid code for ' + transporter + ' .',

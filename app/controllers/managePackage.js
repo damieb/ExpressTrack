@@ -6,7 +6,13 @@
  */
 
 var manage = {
-    add: function () {},
-    edit: function () {},
-    delete: function () {}
-}
+    addPackage: function () {
+        "use strict";
+    },
+    editPackage: function () {
+        "use strict";
+    },
+    deletePackage: function () {
+        "use strict";
+    }
+};

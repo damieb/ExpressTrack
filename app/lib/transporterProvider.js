@@ -13,9 +13,10 @@ var libraries = {
             path: '/api_colissimo/',
             params: '?code='
         }
-    },
+    }
 };
 exports.providers = function (name) {
+    "use strict";
     switch (name) {
 	    case 'colissimo':
 	        return libraries.colissimo;

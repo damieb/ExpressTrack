@@ -4,4 +4,4 @@
  * 
  * NOTE : We use global object transporters.js
  */
-exports.colissimo = Alloy.Globals.libs.transporters(transporter, method, request, callback);
+exports.colissimo = Alloy.Globals.libs.transporters(transporter, method, request, callback, code);
