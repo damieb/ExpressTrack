@@ -7,7 +7,7 @@
 exports.methods = {
 	isValid: function(value) {
 	    "use strict";
-		return (typeof value === undefined || !value.length || value === null) ? false : true;
+		return (typeof value == 'undefined' || !value.length || value == null) ? false : true;
 	},
 	transportersRgx: {
 		colissimo: '[a-z0-9]{11,13}'

@@ -6,8 +6,6 @@
  */
 
 //# Include common libraries to the application 
-Alloy.Globals.libs = {
-	helper: require('helper'),
-	transporters: require('transporters').client()
-};
-
+Alloy.Globals.libs = {};
+Alloy.Globals.libs.helper = require('helper');
+Alloy.Globals.libs.transporters = require('transporters').client();
