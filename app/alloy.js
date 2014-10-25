@@ -9,3 +9,4 @@
 Alloy.Globals.libs = {};
 Alloy.Globals.libs.helper = require('helper');
 Alloy.Globals.libs.transporters = require('transporters').client();
+Alloy.Globals.libs.DBmanager = require('databaseConnector').DBmanager;

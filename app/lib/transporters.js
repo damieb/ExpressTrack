@@ -18,7 +18,6 @@
  *  }
  *
  */
-console.log("glboal obj", Alloy);
 var isValid = Alloy.Globals.libs.helper.methods.isValid, API, code;
 exports.client = function (transporter, method, request, callback, code) {
     "use strict";
