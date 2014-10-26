@@ -15,11 +15,12 @@ var libraries = {
         }
     }
 };
-exports.providers = function (name) {
+exports.of = function (name) {
     "use strict";
+    return;
     switch (name) {
 	    case 'colissimo':
-	        return libraries.colissimo;
+	        return 'libraries.colissimo';
 	        break;
     }
 };

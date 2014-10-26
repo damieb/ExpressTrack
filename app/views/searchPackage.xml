@@ -1,0 +1,8 @@
+<Alloy>
+    <Window id="searchWindow">
+        <Label id="code">Code de suivi :</Label>
+        <TextField id="codeInput" />
+        <Button id="search">Rechercher</Button>
+        <Label id="load"></Label>
+    </Window>
+</Alloy>

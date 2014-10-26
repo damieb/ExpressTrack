@@ -1,0 +1,12 @@
+"#labelCode": {
+	top:"60"
+}
+
+"#searchCode": {
+	top:"75",
+	width:"200"
+}
+
+"#searchLoad": {
+	top:"120"
+}

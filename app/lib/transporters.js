@@ -18,9 +18,8 @@
  *  }
  *
  */
-console.log("glboal obj", Alloy);
 var isValid = Alloy.Globals.libs.helper.methods.isValid, API, code;
-exports.client = function (transporter, method, request, callback, code) {
+exports.client = function (transporter, code, method, request, callback) {
     "use strict";
     if (!isValid(method) || !isValid(transporter) || !isValid(request)) {
         return {
@@ -49,7 +48,6 @@ exports.client = function (transporter, method, request, callback, code) {
             }
         })
     };
-    
     if (!new RegExp(Alloy.Globals.libs.helper.methods.transportersRgx[transporter], 'i').test(code)) {
         return callback({
             code: 403,
