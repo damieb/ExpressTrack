@@ -6,7 +6,7 @@ exports.DBmanager = {
     initialize: function () {
         "use strict";
         var db = Ti.Database.open(info.dbname);
-        db.execute('CREATE TABLE IF NOT EXISTS packages(id INTEGER PRIMARY KEY, alias TEXT, code TEXT);');
+        db.execute('CREATE TABLE IF NOT EXISTS packages(id INTEGER PRIMARY KEY, alias TEXT, code TEXT, status TEXT, transporter TEXT);');
         db.close();
     },
     
@@ -16,17 +16,19 @@ exports.DBmanager = {
             request,
             results = [];
         if (id === undefined) {
-            request = db.execute('SELECT id,alias,code FROM packages');
+            request = db.execute('SELECT id,alias,code, status, transporter FROM packages');
             while (request.isValidRow()){
                 results.push({
-                    id   : request.fieldByName('id'),
-                    text : request.fieldByName('alias'),
-                    title: request.fieldByName('code')
+                    id          : request.fieldByName('id'),
+                    alias       : request.fieldByName('alias'),
+                    code       : request.fieldByName('code'), //required
+                    status      : request.fieldByName('status'), 
+                    transporter : request.fieldByName('transporter') //required
                 });
                 request.next();
             }
         } else {
-            request = db.execute('SELECT id,alias,code FROM packages WHERE id=?', id);
+            request = db.execute('SELECT id,alias,code,status,transporter FROM packages WHERE id=?', id);
         }
         db.close();
         return results;
@@ -37,11 +39,28 @@ exports.DBmanager = {
         var db = Ti.Database.open(info.dbname);
         
         if (data.id === undefined) {
-            db.execute('INSERT INTO packages (alias,code) VALUES (?,?)', data.alias, data.code);
+            db.execute(
+                'INSERT INTO packages (alias,code,status,transporter) VALUES (?,?,?,?)',
+                data.alias,
+                data.code,
+                data.status,
+                data.transporter
+            );
         } else {
-            db.execute('UPDATE packages SET alias=? code=? WHERE id=?', data.alias, data.code, data.id);
+            db.execute(
+                'UPDATE packages SET alias=? code=? status=? WHERE id=?',
+                data.alias,
+                data.code,
+                data.status,
+                data.id
+            );
         }
         db.close();
+    },
+    
+    reset: function () {
+        var db = Ti.Database.open(info.dbname);
+        db.remove();
     },
     
     remove: function (data) {

@@ -1,7 +1,6 @@
 /*
  * Search package
- * @author Yanis Adoui & Damien Leherisson
- * @version 1.0.0
+ * @author Yanis Adoui & Damien Lehericy
  *
  */
 var search = {
