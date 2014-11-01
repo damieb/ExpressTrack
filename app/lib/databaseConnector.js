@@ -6,7 +6,7 @@ exports.DBmanager = {
     initialize: function () {
         "use strict";
         var db = Ti.Database.open(info.dbname);
-        db.execute('CREATE TABLE IF NOT EXISTS packages(id INTEGER PRIMARY KEY, alias TEXT, code TEXT, status TEXT, transporter TEXT);');
+        db.execute('CREATE TABLE IF NOT EXISTS packages(id INTEGER PRIMARY KEY, alias TEXT, code TEXT UNIQUE, status TEXT, transporter TEXT);');
         db.close();
     },
     
@@ -66,7 +66,7 @@ exports.DBmanager = {
     remove: function (data) {
         "use strict";
         var db = Ti.Database.open(info.dbname);
-        db.execute('DELETE FROM packages WHERE id=?', data.id);
+        db.execute('DELETE FROM packages WHERE code=?', data.code);
         db.close();
     }
 };

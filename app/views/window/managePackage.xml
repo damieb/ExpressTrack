@@ -1,9 +1,6 @@
 <Alloy>
     <Window>
         <TableView id="results">
-            <TableViewSection id="numero">
-                <!-- TODO : Liste dynamique (switch sur l'autre TAB au click : nouvelle recherche + actualisation) -->
-            </TableViewSection>
         </TableView>
         <Button id="addCode">Ajouter un suivi</Button>
     </Window>

@@ -22,7 +22,6 @@ var $,
                 if (data.length > 0) {
                     _.each(data, function (item) {
                         wordTwo = item.alias + ' (';
-                        console.log(item);
                         if (item.transporter) {
                             wordOne = item.transporter + ' - ';
                         }
@@ -34,10 +33,12 @@ var $,
                         }
                         var arg = {
                             title: wordOne + wordTwo + wordThree,
-                            url: item.postLink
+                            url: item.postLink,
+                            id: item.code
                         };
-                        dataContainer.push(Alloy.createController('elements/rowHome', arg).getView());
-                        $.results.setData(dataContainer);
+                        $.results.appendRow(Alloy.createController('elements/rowHome', arg).getView());
+                        //console.log(dataContainer);
+                        //$.results.setData(dataContainer);
                     });
                 }
         },
@@ -56,8 +57,13 @@ var $,
             $.modal_addCode.close();
             manage.getList();
         },
-        deletePackage: function () {
+        deletePackage: function (event) {
             "use strict";
+            if (event.direction === 'right') {
+                var i;
+                DB.remove(event.row.id);
+                $.results.deleteRow(event.row);
+            }
         }
     };
     
@@ -65,4 +71,5 @@ DB.initialize();
 manage.getList();
 
 $.addCode.addEventListener('click', manage.openAddModal);
+$.results.addEventListener('swipe', manage.deletePackage);
 $.validateAdd.addEventListener('click', manage.addPackage);
