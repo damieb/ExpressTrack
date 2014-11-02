@@ -1,7 +1,12 @@
 <Alloy>
-    <Window id="searchWindow">
-        <Label id="labelCode">Code de suivi :</Label>
-        <TextField id="searchCode" />
-        <Button id="searchLoad">Rechercher</Button>
-    </Window>
+	<Window id="searchWindow">
+		<Label id="labelCode">Code de suivi :</Label>
+		<TextField id="searchCode" />
+		<Button id="searchLoad">Rechercher</Button>
+		<OptionDialog title="Votre transporteur" id="dialog">
+			<Options>
+				<Option>Annuler</Option>
+			</Options>
+		</OptionDialog>
+	</Window>
 </Alloy>

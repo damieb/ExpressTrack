@@ -17,10 +17,6 @@ var libraries = {
 };
 exports.of = function (name) {
     "use strict";
-    return;
-    switch (name) {
-	    case 'colissimo':
-	        return 'libraries.colissimo';
-	        break;
-    }
+    if(_.isUndefined(libraries[name])) return false;
+    return libraries[name];
 };
