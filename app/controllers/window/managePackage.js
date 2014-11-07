@@ -22,30 +22,28 @@ var DB = Alloy.Globals.libs.DBmanager,
                 wordTwo,
                 wordThree = '';
                 
-                if (refresh) {
-                    $.results.setData([]);   
-                }
-                
-                if (data.length > 0) {
-                    _.each(data, function (item) {
-                        wordTwo = item.alias + ' (';
-                        if (item.transporter) {
-                            wordOne = item.transporter + ' - ';
-                        }
-                        if (item.alias === '') {
-                            wordTwo = item.code;
-                        }
-                        if (item.status) {
-                            wordThree = item.status + ')';
-                        }
-                        var arg = {
-                            title: wordOne + wordTwo + wordThree,
-                            url: item.postLink,
-                            id: item.id
-                        };
-                        $.results.appendRow(Alloy.createController('elements/rowHome', arg).getView());
-                    });
-                }
+            (refresh) ? $.results.setData([]) : '';
+            
+            if (!_.isEmpty(data)) {
+                _.each(data, function (item) {
+                    wordTwo = item.alias + ' (';
+                    if (item.transporter) {
+                        wordOne = item.transporter + ' - ';
+                    }
+                    if (item.alias === '') {
+                        wordTwo = item.code;
+                    }
+                    if (item.status) {
+                        wordThree = item.status + ')';
+                    }
+                    var args = {
+                        title: wordOne + wordTwo + wordThree,
+                        url: item.postLink,
+                        id: item.id
+                    };
+                    $.results.appendRow(Alloy.createController('elements/rowHome', args).getView());
+                });
+            }
         },
         
         editPackage: function (event) {
@@ -61,10 +59,11 @@ var DB = Alloy.Globals.libs.DBmanager,
         
         addPackage: function () {
             "use strict";
+            // TODO : Passer par tout le process de vérification et dynamique
             var data = {
                 alias: $.aliasInput.value,
                 code: $.codeInput.value,
-                status : 'En cours',
+                status : 'En cours', 
                 transporter : 'Collisimo'
             };
             DB.save(data);

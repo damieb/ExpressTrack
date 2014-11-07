@@ -3,6 +3,8 @@
  * @author Yanis Adoui & Damien Lehericy
  * @version 1.0.1
  *
+ * DEMO : 6C02661973266
+ * 
  */
 var search = {
     helper: Alloy.Globals.libs.helper,
@@ -60,6 +62,7 @@ var search = {
                             currentParams.request.params += $.searchCode.value;
                             Alloy.Globals.libs.transporters.client(currentParams.request.name, $.searchCode.value, currentParams.request.method, currentParams.request, function (data) {
                                 Alloy.Globals.loading.hide();
+                                $.display.setData([]);
                                 if(!data.response || _.isEmpty(data.response)) return alert('Colis introuvable.');
                                 // TODO : User de la DB pour proposer un enregistrement si ce n'est pas déjà le cas.
                                 _.each(data.response, function(data) { 

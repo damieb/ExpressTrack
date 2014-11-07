@@ -25,26 +25,26 @@ exports.DBmanager = {
         var db = Ti.Database.open(info.dbname),
             request,
             results = [];
-        if (id === undefined) {
-            request = db.execute('SELECT id,alias,code, status, transporter FROM packages');
-            while (request.isValidRow()){
+        if (_.isUndefined(id)) {
+            request = db.execute('SELECT id, alias, code, status, transporter FROM packages');
+            while (request.isValidRow()) {
                 results.push({
                     id          : request.fieldByName('id'),
                     alias       : request.fieldByName('alias'),
-                    code        : request.fieldByName('code'), //required
+                    code        : request.fieldByName('code'), //# required
                     status      : request.fieldByName('status'), 
-                    transporter : request.fieldByName('transporter') //required
+                    transporter : request.fieldByName('transporter') //# required
                 });
                 request.next();
             }
         } else {
-            request = db.execute('SELECT id,alias,code,status,transporter FROM packages WHERE id=?', id);
+            request = db.execute('SELECT id, alias, code, status, transporter FROM packages WHERE id= ?', id);
                 results.push({
                     id          : request.fieldByName('id'),
                     alias       : request.fieldByName('alias'),
-                    code        : request.fieldByName('code'), //required
+                    code        : request.fieldByName('code'), //# required
                     status      : request.fieldByName('status'), 
-                    transporter : request.fieldByName('transporter') //required
+                    transporter : request.fieldByName('transporter') //# required
                 });
         }
         return results;
@@ -58,9 +58,9 @@ exports.DBmanager = {
         "use strict";
         var db = Ti.Database.open(info.dbname);
         
-        if (data.id === undefined) {
+        if (_.isUndefined(data.id)) {
             db.execute(
-                'INSERT INTO packages (alias,code,status,transporter) VALUES (?,?,?,?)',
+                'INSERT INTO packages (alias, code, status, transporter) VALUES (?, ?, ?, ?)',
                 data.alias,
                 data.code,
                 data.status,
@@ -68,7 +68,7 @@ exports.DBmanager = {
             );
         } else {
             db.execute(
-                'UPDATE packages SET alias=? WHERE id=?',
+                'UPDATE packages SET alias= ? WHERE id= ?',
                 data.alias,
                 data.id
             );
@@ -85,7 +85,7 @@ exports.DBmanager = {
     remove: function (data) {
         "use strict";
         var db = Ti.Database.open(info.dbname);
-        db.execute('DELETE FROM packages WHERE id=?', data);
+        db.execute('DELETE FROM packages WHERE id= ?', data);
         db.close();
     }
 };
