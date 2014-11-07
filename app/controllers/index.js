@@ -19,4 +19,4 @@ var $,
 /*
  * This function reset your database when you start your app
  */
-options.reset();
+//options.reset();

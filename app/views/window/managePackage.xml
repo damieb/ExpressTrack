@@ -12,4 +12,9 @@
             <TextField id="codeInput" />
             <Button id="validateAdd">Valider</Button>
         </Window>
+        <Window id="modal_editCode" title="Editer suivi">
+            <Label id="aliasLabel">Alias :</Label>
+            <TextField id="aliasEditInput" />
+            <Button id="validateEdit">Valider</Button>
+        </Window>
 </Alloy>

@@ -21,7 +21,7 @@ exports.DBmanager = {
                 results.push({
                     id          : request.fieldByName('id'),
                     alias       : request.fieldByName('alias'),
-                    code       : request.fieldByName('code'), //required
+                    code        : request.fieldByName('code'), //required
                     status      : request.fieldByName('status'), 
                     transporter : request.fieldByName('transporter') //required
                 });
@@ -29,8 +29,15 @@ exports.DBmanager = {
             }
         } else {
             request = db.execute('SELECT id,alias,code,status,transporter FROM packages WHERE id=?', id);
+                results.push({
+                    id          : request.fieldByName('id'),
+                    alias       : request.fieldByName('alias'),
+                    code        : request.fieldByName('code'), //required
+                    status      : request.fieldByName('status'), 
+                    transporter : request.fieldByName('transporter') //required
+                });
         }
-        db.close();
+        console.log('fetch', results);
         return results;
     },
     
@@ -48,10 +55,8 @@ exports.DBmanager = {
             );
         } else {
             db.execute(
-                'UPDATE packages SET alias=? code=? status=? WHERE id=?',
+                'UPDATE packages SET alias=? WHERE id=?',
                 data.alias,
-                data.code,
-                data.status,
                 data.id
             );
         }
@@ -59,6 +64,7 @@ exports.DBmanager = {
     },
     
     reset: function () {
+        "use strict";
         var db = Ti.Database.open(info.dbname);
         db.remove();
     },
@@ -66,7 +72,7 @@ exports.DBmanager = {
     remove: function (data) {
         "use strict";
         var db = Ti.Database.open(info.dbname);
-        db.execute('DELETE FROM packages WHERE code=?', data.code);
+        db.execute('DELETE FROM packages WHERE id=?', data);
         db.close();
     }
 };

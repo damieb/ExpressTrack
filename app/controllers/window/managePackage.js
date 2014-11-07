@@ -4,6 +4,8 @@
  * @version 1.0.0
  *
  */
+/*jslint nomen: true*/
+/*global _, console */
 var $,
     DB = Alloy.Globals.libs.DBmanager,
     manage = {
@@ -11,13 +13,17 @@ var $,
             "use strict";
             $.modal_addCode.open();
         },
-        getList: function () {
+        getList: function (refresh) {
             "use strict";
             var data = DB.fetch(),
                 dataContainer = [],
                 wordOne = '',
                 wordTwo,
                 wordThree = '';
+                
+                if (refresh) {
+                    $.results.setData([]);   
+                }
                 
                 if (data.length > 0) {
                     _.each(data, function (item) {
@@ -34,16 +40,21 @@ var $,
                         var arg = {
                             title: wordOne + wordTwo + wordThree,
                             url: item.postLink,
-                            id: item.code
+                            id: item.id
                         };
                         $.results.appendRow(Alloy.createController('elements/rowHome', arg).getView());
-                        //console.log(dataContainer);
-                        //$.results.setData(dataContainer);
                     });
                 }
         },
-        editPackage: function () {
+        editPackage: function (event) {
             "use strict";
+            var data = {
+                alias: $.aliasEditInput.value,
+                id : $.aliasEditInput.db_id
+            };
+            DB.save(data);
+            $.modal_editCode.close();
+            manage.getList(true);
         },
         addPackage: function () {
             "use strict";
@@ -54,22 +65,37 @@ var $,
                 transporter : 'Collisimo'
             };
             DB.save(data);
+            $.aliasInput.value = '';
+            $.codeInput.value = '';
             $.modal_addCode.close();
-            manage.getList();
+            manage.getList(true);
         },
         deletePackage: function (event) {
             "use strict";
+            DB.remove(event.row.id);
+            $.results.deleteRow(event.row);  
+        },
+        swipeAction: function (event) {
+            "use strict";
+            // Right swipe = delete
+            var data, i;
             if (event.direction === 'right') {
-                var i;
-                DB.remove(event.row.id);
-                $.results.deleteRow(event.row);
+                manage.deletePackage(event);
             }
+            // Left swipe = edit
+            if (event.direction === 'left') {
+                data = DB.fetch(event.row.id);
+                $.aliasEditInput.value = data[0].alias;
+                $.aliasEditInput.db_id = event.row.id;
+                $.modal_editCode.open();
+            } 
         }
     };
     
 DB.initialize();
-manage.getList();
+manage.getList(false);
 
 $.addCode.addEventListener('click', manage.openAddModal);
-$.results.addEventListener('swipe', manage.deletePackage);
+$.results.addEventListener('swipe', manage.swipeAction);
 $.validateAdd.addEventListener('click', manage.addPackage);
+$.validateEdit.addEventListener('click', manage.editPackage);
