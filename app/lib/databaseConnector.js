@@ -1,3 +1,9 @@
+/*
+ * Database Manager
+ * @author Yanis Adoui & Damien Lehericy
+ * @version 1.0.1
+ *
+ */
 var info = {
         dbname: 'expressTrack'
     };
@@ -10,6 +16,10 @@ exports.DBmanager = {
         db.close();
     },
     
+    /**
+     * @description fetch packages
+     * @param {Object} id
+     */
     fetch: function (id) {
         "use strict";
         var db = Ti.Database.open(info.dbname),
@@ -37,10 +47,13 @@ exports.DBmanager = {
                     transporter : request.fieldByName('transporter') //required
                 });
         }
-        console.log('fetch', results);
         return results;
     },
     
+    /**
+     * @description Save or update your data, by passing a simple object
+     * @param {Object} data
+     */
     save: function (data) {
         "use strict";
         var db = Ti.Database.open(info.dbname);

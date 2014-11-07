@@ -13,6 +13,10 @@ var $,
             "use strict";
             $.modal_addCode.open();
         },
+        /**
+         * @description refresh list of packages
+         * @param {Boolean} refresh
+         */
         getList: function (refresh) {
             "use strict";
             var data = DB.fetch(),
@@ -46,6 +50,7 @@ var $,
                     });
                 }
         },
+        
         editPackage: function (event) {
             "use strict";
             var data = {
@@ -56,6 +61,7 @@ var $,
             $.modal_editCode.close();
             manage.getList(true);
         },
+        
         addPackage: function () {
             "use strict";
             var data = {
@@ -70,11 +76,17 @@ var $,
             $.modal_addCode.close();
             manage.getList(true);
         },
+        
         deletePackage: function (event) {
             "use strict";
             DB.remove(event.row.id);
             $.results.deleteRow(event.row);  
         },
+        
+        /**
+         * @description Check gestures
+         * @param {Object} event
+         */
         swipeAction: function (event) {
             "use strict";
             // Right swipe = delete
