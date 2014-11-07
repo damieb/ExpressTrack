@@ -4,8 +4,6 @@
  * @version 1.0.0
  *
  */
-/*jslint nomen: true*/
-/*global _, console, $ */
 var DB = Alloy.Globals.libs.DBmanager,
     manage = {
         openAddModal: function (e) {
@@ -81,7 +79,6 @@ var DB = Alloy.Globals.libs.DBmanager,
             DB.remove(event.row.id);
             $.results.deleteRow(event.row);  
         },
-        
         /**
          * @description Check gestures
          * @param {Object} event

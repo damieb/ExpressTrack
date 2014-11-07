@@ -15,8 +15,5 @@ var $,
         }
     };
   
-//TODO do someting with database
-/*
- * This function reset your database when you start your app
- */
-//options.reset();
+//# This function reset your database when you start your app
+//# options.reset();

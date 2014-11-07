@@ -4,8 +4,6 @@
  * @version 1.0.2
  *
  */
-/*jslint nomen: true*/
-/*global _*/
 exports.methods = {
     isValid: function (value) {
         "use strict";

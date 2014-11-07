@@ -1,7 +1,6 @@
 <Alloy>
 	<TabGroup>
         <Menu id="menu" platform="android">
-            <!-- Cannot specify node text.  Use attributes only. -->
             <MenuItem id="resetButton" title="Réinitialiser" />
         </Menu>
 		<Tab title="Gestion des suivis">

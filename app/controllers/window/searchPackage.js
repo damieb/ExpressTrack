@@ -1,17 +1,27 @@
 /*
  * Search package
  * @author Yanis Adoui & Damien Lehericy
- * @version 1.0.0
+ * @version 1.0.1
  *
  */
-/*jslint nomen: true*/
-/*global _, $*/
 var search = {
     helper: Alloy.Globals.libs.helper,
     parameters: require('transporterProvider'),
+
+    /**
+     * <???>
+     * @param  {<???>} <???>
+     * @return {<???>}        <???>
+     */
     add: function () {
         "use strict";
     },
+
+    /**
+     * Transporter selection
+     * @param  {Array} librarie Array with list of transporter
+     * @return {Integer}        Number index of select
+     */
     select: function (librarie) {
         "use strict";
         Alloy.Globals.loading.hide();
@@ -30,6 +40,7 @@ var search = {
             if (!search.helper.methods.isValid($.searchCode.value)) return alert('Indiquez votre numéro de suivi.');
             Alloy.Globals.loading.show('Patientez, nous recherchons...', false);
             if (librarie = search.helper.methods.whatIs($.searchCode.value)) {
+                // Define a transporter name
                 if(!search.helper.methods.isValid(librarie)) {
                     Alloy.Globals.loading.hide();
                     return alert('Livreur non-pris en charge !');
@@ -39,6 +50,7 @@ var search = {
                     librarie = librarie[0];
                 }
                 switch (librarie) {
+                    // TODO : Créer une librairie pour y entreposer un callback d'éxécution selon le transporteur.
                     case 'colissimo':
                         if (!search.parameters.of(librarie)) {
                             Alloy.Globals.loading.hide();
@@ -65,4 +77,5 @@ var search = {
         });
     }
 };
+
 search.load();
