@@ -10,3 +10,13 @@
 "#searchLoad": {
 	top:"120"
 }
+
+"#display": {
+	top:"200"
+}
+
+"#displayRow": {
+	font:{
+      fontSize: 40,
+   },
+}		

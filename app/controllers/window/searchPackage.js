@@ -43,13 +43,14 @@ var search = {
                             return alert('Une erreur est survenue.');
                         } else {
                             currentParams = search.parameters.of(librarie);
-                            currentParams.request.params =+ $.searchCode.value;
-                            Alloy.Globals.libs.transporters.client(currentParams.name, $.searchCode.value, currentParams.method, currentParams.request, function (data) {
-                                // if(!data.response) return alert('Colis introuvable.');
-                                // TODO : User de la DB pour proposer un enregistrement si ce n'est pas déjà le cas.
-                                // TODO : Afficher les résultats.
-                                Alloy.createController('elements/searchResults', ['data.response']).getView();
+                            currentParams.request.params += $.searchCode.value;
+                            Alloy.Globals.libs.transporters.client(currentParams.request.name, $.searchCode.value, currentParams.request.method, currentParams.request, function (data) {
                                 Alloy.Globals.loading.hide();
+                                if(!data.response || _.isEmpty(data.response)) return alert('Colis introuvable.');
+                                // TODO : User de la DB pour proposer un enregistrement si ce n'est pas déjà le cas.
+                                _.each(data.response, function(data) { 
+                                    $.display.appendRow(Alloy.createController('elements/searchResults', data).getView());
+                                });
                             });
                         }
                         break;

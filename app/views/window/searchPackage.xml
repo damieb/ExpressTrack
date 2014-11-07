@@ -8,5 +8,7 @@
 				<Option>Annuler</Option>
 			</Options>
 		</OptionDialog>
+		<TableView id="display">
+        </TableView>
 	</Window>
 </Alloy>

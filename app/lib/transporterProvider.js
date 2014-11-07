@@ -5,10 +5,10 @@
  */
 var libraries = {
     colissimo: {
-        name: 'colissimo',
-        method: 'GET',
         request: {
-            protocol: 'http',
+            name: 'colissimo',
+            method: 'GET',
+            protocol: 'http://',
             domain: 'yanisadouiudy.power-heberg.com',
             path: '/api_colissimo/',
             params: '?code='
