@@ -4,6 +4,8 @@
  * @version 1.0.2
  *
  */
+/*jslint nomen: true*/
+/*global _*/
 exports.methods = {
     isValid: function (value) {
         "use strict";
@@ -11,8 +13,8 @@ exports.methods = {
     },
     transportersRgx: {
         colissimo: {
-        	regex: '[a-z0-9]{11,13}',
-        	options: 'i'
+            regex: '[a-z0-9]{11,13}',
+            options: 'i'
         }
     },
     whatIs: function (code) {

@@ -1,14 +1,20 @@
 <Alloy>
     <Window>
         <TableView id="results">
-            <TableViewSection id="numero">
-                <!-- TODO : Liste dynamique (switch sur l'autre TAB au click : nouvelle recherche + actualisation) -->
-                <TableViewRow title="Colissimo - 908305G454167 (Livré)" />
-                <TableViewRow title="Fedex - 905G458301674 (En cours)" />
-                <TableViewRow title="BPoste - 9850416305G47 (En attente)" />
-                <TableViewRow title="Colipost - 091678304545G (Expédié)" />
-            </TableViewSection>
         </TableView>
         <Button id="addCode">Ajouter un suivi</Button>
     </Window>
+        <Window id="modal_addCode" title="Ajouter suivi"
+            message="Would you like to delete the file?" cancel="1">
+            <Label id="aliasLabel">Alias :</Label>
+            <TextField id="aliasInput" />
+            <Label id="codeLabel">Code de suivi :</Label>
+            <TextField id="codeInput" />
+            <Button id="validateAdd">Valider</Button>
+        </Window>
+        <Window id="modal_editCode" title="Editer suivi">
+            <Label id="aliasLabel">Alias :</Label>
+            <TextField id="aliasEditInput" />
+            <Button id="validateEdit">Valider</Button>
+        </Window>
 </Alloy>

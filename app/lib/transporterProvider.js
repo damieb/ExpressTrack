@@ -3,6 +3,8 @@
  * @author Yanis Adoui & Damien Lehericy
  * @version 1.0.0
  */
+/*jslint nomen: true*/
+/*global _ */
 var libraries = {
     colissimo: {
         request: {

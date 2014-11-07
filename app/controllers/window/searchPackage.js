@@ -1,9 +1,11 @@
 /*
  * Search package
- * @author Yanis Adoui & Damien Le Hérisson
+ * @author Yanis Adoui & Damien Lehericy
  * @version 1.0.0
  *
  */
+/*jslint nomen: true*/
+/*global _, $*/
 var search = {
     helper: Alloy.Globals.libs.helper,
     parameters: require('transporterProvider'),

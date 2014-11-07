@@ -1,0 +1,30 @@
+"#aliasLabel": {
+	top:"60"
+}
+
+"#aliasInput": {
+	top:"75",
+	width:"200"
+}
+
+"#aliasEditInput": {
+	top:"75",
+	width:"200"
+}
+
+"#codeLabel": {
+	top:"125"
+}
+
+"#codeInput": {
+	top:"135",
+	width:"200"
+}
+
+"#validateAdd": {
+	top:"200"
+}
+
+"#validateEdit": {
+	top:"200"
+}
