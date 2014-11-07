@@ -1,25 +1,4 @@
 <Alloy>
-<<<<<<< HEAD
-	<Window id="searchWindow">
-		<Label id="labelCode">Code de suivi :</Label>
-		<TextField id="searchCode" />
-		<Button id="searchLoad">Rechercher</Button>
-		<AlertDialog id="dialog" title="Ajouter transporteur" message="Voulez-vous enregistrer ce suivi ?" cancel="1">
-			<ButtonNames>
-				<ButtonName>Oui</ButtonName>
-				<ButtonName>Non</ButtonName>
-			</ButtonNames>
-		</AlertDialog>
-		<OptionDialog title="Votre transporteur" id="dialog">
-			<Options>
-				<Option>Annuler</Option>
-			</Options>
-		</OptionDialog>
-		<TableView id="display">
-		</TableView>
-	</Window>
-</Alloy>
-=======
     <Window id="searchWindow">
         <Label id="labelCode">Code de suivi :</Label>
         <TextField id="searchCode" />
@@ -33,4 +12,3 @@
         </TableView>
     </Window>
 </Alloy>
->>>>>>> 6e8ca652068553adf41257a1409a860e7cbabdcd
