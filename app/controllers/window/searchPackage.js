@@ -1,49 +1,68 @@
 /*
  * Search package
  * @author Yanis Adoui & Damien Lehericy
+ * @version 1.0.0
  *
  */
+/*jslint nomen: true*/
+/*global _, $*/
 var search = {
+    helper: Alloy.Globals.libs.helper,
+    parameters: require('transporterProvider'),
     add: function () {
         "use strict";
     },
-    search: function () {
+    select: function (librarie) {
         "use strict";
-        $.search.addEventListener('click', function (e) {
-            if (!helper.methods.isValid($.codeInput.value)) return alert('Veuillez indiquer votre numéro de suivi.');
-            $.load.text = 'Chargement...';
-            if (librarie = helper.methods.whatIs($.codeInput.value)) {
-                switch (librarie) {
-                case 'colissimo':
-                    libraries.colissimo.api.getTracking($.codeInput.value, libraries.colissimo.key, function (data) {
-                        var sectionExplain = Ti.UI.createTableViewSection({
-                            headerTitle: 'Suivi de votre colis'
-                        });
-                        for (c = 0; c < data.response.length; c++) {
-                            sectionExplain.add(Ti.UI.createTableViewRow({
-                                title: data.response[c].date + ' : ' + data.response[c].message + ' | Lieu : ' + data.response[c].lieu
-                            }));
-                        }
-                        //#! TODO : Supprimer la précédente table, sinon les résultats de cumulent.
-                        var table = Ti.UI.createTableView({
-                            top: 180,
-                            data: [sectionExplain]
-                        });
-                        $.load.text = '';
-                        $.searchWindow.add(table);
-                    });
-                    break;
-                case 'fedex':
-                    break;
-                case 'poste':
-                    break;
-                default:
-                    $.load.text = 'Livreur non-pris en charge.';
-                    break;
+        Alloy.Globals.loading.hide();
+        $.dialog.options = librarie;
+        $.dialog.show();
+        $.dialog.addEventListener('click', function (e) {
+            Alloy.Globals.loading.show('Patientez, nous recherchons...', false);
+            return $.dialog.options[$.dialog.selectedIndex];
+        });
+    },
+    load: function () {
+        "use strict";
+        var librarie, currentParams;
+        $.searchLoad.addEventListener('click', function (e) {
+            $.searchCode.blur();
+            if (!search.helper.methods.isValid($.searchCode.value)) return alert('Indiquez votre numéro de suivi.');
+            Alloy.Globals.loading.show('Patientez, nous recherchons...', false);
+            if (librarie = search.helper.methods.whatIs($.searchCode.value)) {
+                if(!search.helper.methods.isValid(librarie)) {
+                    Alloy.Globals.loading.hide();
+                    return alert('Livreur non-pris en charge !');
+                } else if(librarie.length > 1) {
+                    librarie = search.select(librarie);
+                } else {
+                    librarie = librarie[0];
                 }
-            } else {
-                $.load.text = 'Une erreur est survenue, le livreur ne semble pas pris en charge.';
+                switch (librarie) {
+                    case 'colissimo':
+                        if (!search.parameters.of(librarie)) {
+                            Alloy.Globals.loading.hide();
+                            return alert('Une erreur est survenue.');
+                        } else {
+                            currentParams = search.parameters.of(librarie);
+                            currentParams.request.params += $.searchCode.value;
+                            Alloy.Globals.libs.transporters.client(currentParams.request.name, $.searchCode.value, currentParams.request.method, currentParams.request, function (data) {
+                                Alloy.Globals.loading.hide();
+                                if(!data.response || _.isEmpty(data.response)) return alert('Colis introuvable.');
+                                // TODO : User de la DB pour proposer un enregistrement si ce n'est pas déjà le cas.
+                                _.each(data.response, function(data) { 
+                                    $.display.appendRow(Alloy.createController('elements/searchResults', data).getView());
+                                });
+                            });
+                        }
+                        break;
+                    default:
+                        Alloy.Globals.loading.hide();
+                        return alert('Livreur non-pris en charge.');
+                        break;
+                }
             }
         });
     }
 };
+search.load();

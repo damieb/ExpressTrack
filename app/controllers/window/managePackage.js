@@ -5,9 +5,8 @@
  *
  */
 /*jslint nomen: true*/
-/*global _, console */
-var $,
-    DB = Alloy.Globals.libs.DBmanager,
+/*global _, console, $ */
+var DB = Alloy.Globals.libs.DBmanager,
     manage = {
         openAddModal: function (e) {
             "use strict";

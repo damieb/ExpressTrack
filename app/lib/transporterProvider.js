@@ -3,23 +3,22 @@
  * @author Yanis Adoui & Damien Lehericy
  * @version 1.0.0
  */
+/*jslint nomen: true*/
+/*global _ */
 var libraries = {
     colissimo: {
-        name: 'colissimo',
-        method: 'GET',
         request: {
-            protocol: 'http',
+            name: 'colissimo',
+            method: 'GET',
+            protocol: 'http://',
             domain: 'yanisadouiudy.power-heberg.com',
             path: '/api_colissimo/',
             params: '?code='
         }
     }
 };
-exports.providers = function (name) {
+exports.of = function (name) {
     "use strict";
-    switch (name) {
-	    case 'colissimo':
-	        return libraries.colissimo;
-	        break;
-    }
+    if(_.isUndefined(libraries[name])) return false;
+    return libraries[name];
 };
