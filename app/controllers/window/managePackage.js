@@ -90,16 +90,40 @@ var DB = Alloy.Globals.libs.DBmanager,
             "use strict";
             // Right swipe = delete
             var data, i;
-            if (event.direction === 'right') {
+            /*if (event.direction === 'right') {
                 manage.deletePackage(event);
-            }
+            }*/
             // Left swipe = edit
-            if (event.direction === 'left') {
+            /*if (event.direction === 'left') {
                 data = DB.fetch(event.row.id);
                 $.aliasEditInput.value = data[0].alias;
                 $.aliasEditInput.db_id = event.row.id;
                 $.modal_editCode.open();
-            } 
+            }*/
+            console.log(event.direction);
+            switch (event.direction) {
+                case 'right':
+                    manage.deletePackage(event);
+                break;
+                case 'left':
+                    data = DB.fetch(event.row.id);
+                    $.aliasEditInput.value = data[0].alias;
+                    $.aliasEditInput.db_id = event.row.id;
+                    $.modal_editCode.open();
+                break;
+                case 'up':
+                    console.log('up swipe');
+                break;
+                case 'down':
+                    console.log('down swipe');
+                break;
+            }
+        },
+        cleanDb: function (event) {
+            "use strict";
+            DB.reset();
+            DB.initialize();
+            manage.getList(true);
         }
     };
     
@@ -107,6 +131,7 @@ DB.initialize();
 manage.getList(false);
 
 $.addCode.addEventListener('click', manage.openAddModal);
-$.results.addEventListener('swipe', manage.swipeAction);
 $.validateAdd.addEventListener('click', manage.addPackage);
 $.validateEdit.addEventListener('click', manage.editPackage);
+$.results.addEventListener('swipe', manage.swipeAction);
+Ti.Gesture.addEventListener('shake', manage.cleanDb);
