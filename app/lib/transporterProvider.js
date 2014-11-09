@@ -11,7 +11,7 @@ var libraries = {
             protocol: 'http://',
             domain: 'yanisadouiudy.power-heberg.com',
             path: '/api_colissimo/',
-            params: '?code='
+            params: {}
         }
     }
 };

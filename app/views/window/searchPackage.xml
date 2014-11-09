@@ -8,6 +8,12 @@
                 <Option>Annuler</Option>
             </Options>
         </OptionDialog>
+        <AlertDialog id="addPackage" title="Ajouter" message="Souhaitez-vous ajouter ce suivi ?" cancel="1">
+            <ButtonNames>
+                <ButtonName>Oui</ButtonName>
+                <ButtonName>Non</ButtonName>
+            </ButtonNames>
+        </AlertDialog>
         <TableView id="display">
         </TableView>
     </Window>

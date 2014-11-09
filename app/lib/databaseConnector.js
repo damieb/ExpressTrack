@@ -20,12 +20,12 @@ exports.DBmanager = {
      * @description fetch packages
      * @param {Object} id
      */
-    fetch: function (id) {
+    fetch: function (data) {
         "use strict";
         var db = Ti.Database.open(info.dbname),
             request,
             results = [];
-        if (_.isUndefined(id)) {
+        if (_.isUndefined(data)) {
             request = db.execute('SELECT id, alias, code, status, transporter FROM packages');
             while (request.isValidRow()) {
                 results.push({
@@ -38,7 +38,8 @@ exports.DBmanager = {
                 request.next();
             }
         } else {
-            request = db.execute('SELECT id, alias, code, status, transporter FROM packages WHERE id= ?', id);
+            request = (_.isNumber(data)) ? db.execute('SELECT id, alias, code, status, transporter FROM packages WHERE id = ?', data) : db.execute('SELECT id, alias, code, status, transporter FROM packages WHERE code = ?', data);
+            if(request.rowCount > 0) {
                 results.push({
                     id          : request.fieldByName('id'),
                     alias       : request.fieldByName('alias'),
@@ -46,6 +47,7 @@ exports.DBmanager = {
                     status      : request.fieldByName('status'), 
                     transporter : request.fieldByName('transporter') //# required
                 });
+            }
         }
         return results;
     },

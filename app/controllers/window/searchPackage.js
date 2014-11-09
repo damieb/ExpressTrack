@@ -9,14 +9,29 @@
 var search = {
     helper: Alloy.Globals.libs.helper,
     parameters: require('transporterProvider'),
+    DB: Alloy.Globals.libs.DBmanager,
 
     /**
-     * <???>
-     * @param  {<???>} <???>
-     * @return {<???>}        <???>
+     * Push transporter
+     * @param  {String} Code tracking
+     * @param  {String} Transporter name
+     * @param  {String} Status of tracking
      */
-    add: function () {
+    add: function (code, transporter, status) {
         "use strict";
+         if(_.isEmpty(search.DB.fetch(code))) {
+            $.addPackage.show();
+            $.addPackage.addEventListener('click', function (e) {
+                if (e.index === 0) {
+                    search.DB.save({
+                        alias: '',
+                        code: code,
+                        status: status,
+                        transporter: transporter
+                    });
+                }
+            });
+        }
     },
 
     /**
@@ -59,12 +74,12 @@ var search = {
                             return alert('Une erreur est survenue.');
                         } else {
                             currentParams = search.parameters.of(librarie);
-                            currentParams.request.params += $.searchCode.value;
+                            currentParams.request.params = {code: $.searchCode.value};
                             Alloy.Globals.libs.transporters.client(currentParams.request.name, $.searchCode.value, currentParams.request.method, currentParams.request, function (data) {
                                 Alloy.Globals.loading.hide();
                                 $.display.setData([]);
                                 if(!data.response || _.isEmpty(data.response)) return alert('Colis introuvable.');
-                                // TODO : User de la DB pour proposer un enregistrement si ce n'est pas déjà le cas.
+                                search.add($.searchCode.value, librarie, 'En cours'); // TODO : Extraire l'état actuel.
                                 _.each(data.response, function(data) { 
                                     $.display.appendRow(Alloy.createController('elements/searchResults', data).getView());
                                 });

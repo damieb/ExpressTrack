@@ -1,7 +1,7 @@
 /**
  * Common library
  * @author Yanis Adoui & Damien Lehericy
- * @version 1.0.0
+ * @version 1.0.1
  *
  * @param  {string}     transporter The current transporter
  * @param  {string}     method      Method of request (GET, POST, DELETE, ...)
@@ -14,11 +14,11 @@
  *      protocol: 'http',
  *      domain: 'google.fr',
  *      path: '/track/',
- *      params: '?toto=titi&tutu=tata'
+ *      params: {titi: '45', toto: 'SD515SD4G56'}
  *  }
  *
  */
-var isValid = Alloy.Globals.libs.helper.methods.isValid, API, code;
+var isValid = Alloy.Globals.libs.helper.methods.isValid, API, code, uri;
 exports.client = function (transporter, code, method, request, callback) {
     "use strict";
     if (!isValid(method) || !isValid(transporter) || !isValid(request)) {
@@ -27,12 +27,21 @@ exports.client = function (transporter, code, method, request, callback) {
             state: 'A valid params are required to access the API.',
             response: false
         };
+    } else {
+        _.each(request.params, function(value, param) {
+            if(_.isUndefined(uri) || _.isEmpty(uri)) {
+                uri = '?' + param + '=' + value; 
+            } else {
+                uri += '&' + param + '=' + value; 
+            }
+        });
     }
     //# TODO : Prise en charge de la méthode POST.
     API = {
-        url: request.protocol + request.domain + request.path + request.params,
+        url: request.protocol + request.domain + request.path + uri,
         client: Ti.Network.createHTTPClient({
             onload: function (e) {
+                uri = {};
                 return callback({
                     code: 200,
                     state: 'The application received a response from the API.',
@@ -40,6 +49,7 @@ exports.client = function (transporter, code, method, request, callback) {
                 });
             },
             onerror: function (e) {
+                uri = {};
                 return callback({
                     code: 500,
                     state: 'An internal error occurred, check your internet connection.',
