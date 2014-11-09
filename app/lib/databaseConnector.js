@@ -58,34 +58,62 @@ exports.DBmanager = {
         "use strict";
         var db = Ti.Database.open(info.dbname);
         
-        if (data.id === undefined) {
-            db.execute(
-                'INSERT INTO packages (alias,code,status,transporter) VALUES (?,?,?,?)',
-                data.alias,
-                data.code,
-                data.status,
-                data.transporter
-            );
+        if (typeof data.id === 'undefined') {
+            try {
+                if (typeof data.code !== 'undefined' && data.code !== '') {
+                    db.execute(
+                        'INSERT INTO packages (alias,code,status,transporter) VALUES (?,?,?,?)',
+                        data.alias,
+                        data.code,
+                        data.status,
+                        data.transporter
+                    );
+                } else {
+                    throw 42;
+                }
+            } catch (e) {
+                   return e;
+            }
         } else {
-            db.execute(
-                'UPDATE packages SET alias=? WHERE id=?',
-                data.alias,
-                data.id
-            );
+            try {
+                if (typeof data.id !== 'undefined' && data.alias !== 'undefined' && data.alias !== '') {
+                    db.execute(
+                        'UPDATE packages SET alias=? WHERE id=?',
+                        data.alias,
+                        data.id
+                    );
+                } else {
+                    throw 42;
+                }
+            } catch (error) {
+                return error;
+            }
         }
         db.close();
     },
     
     reset: function () {
         "use strict";
-        var db = Ti.Database.open(info.dbname);
-        db.remove();
+        try {
+            var db = Ti.Database.open(info.dbname);
+            db.remove();
+        } catch (e) {
+            return e;
+        }
     },
     
     remove: function (data) {
         "use strict";
         var db = Ti.Database.open(info.dbname);
-        db.execute('DELETE FROM packages WHERE id=?', data);
+        try {
+            if (typeof data !== 'undefined' && data !== '') {
+                db.execute('DELETE FROM packages WHERE id=?', data);
+            } else {
+                throw 42;
+            }
+        } catch (e) {
+            return e;
+        }
         db.close();
     }
 };

@@ -55,10 +55,17 @@ var DB = Alloy.Globals.libs.DBmanager,
             var data = {
                 alias: $.aliasEditInput.value,
                 id : $.aliasEditInput.db_id
-            };
-            DB.save(data);
-            $.modal_editCode.close();
-            manage.getList(true);
+            },
+            res = DB.save(data);
+            console.log(res);
+            if (res === 42) {
+                alert('Vérifier vos informations !');
+            } else if (typeof res === 'undefined') {
+                $.modal_editCode.close();
+                manage.getList(true);
+            } else {
+                alert('Vérifier vos informations !');
+            }
         },
         
         addPackage: function () {
@@ -68,18 +75,32 @@ var DB = Alloy.Globals.libs.DBmanager,
                 code: $.codeInput.value,
                 status : 'En cours',
                 transporter : 'Collisimo'
-            };
-            DB.save(data);
-            $.aliasInput.value = '';
-            $.codeInput.value = '';
-            $.modal_addCode.close();
-            manage.getList(true);
+            },
+            res = DB.save(data);
+            if (res === 42) {
+                alert('Vous devez rentrer un code de suivi !');
+            } else if (typeof res === 'undefined') {
+                $.aliasInput.value = '';
+                $.codeInput.value = '';
+                $.modal_addCode.close();
+                manage.getList(true);
+            } else {
+                alert('Vérifier vos informations !');
+            }
         },
         
         deletePackage: function (event) {
             "use strict";
-            DB.remove(event.row.id);
-            $.results.deleteRow(event.row);  
+            if (typeof event.row !== 'undefined') {
+                if (typeof event.row.id !== 'undefined') {
+                    var res = DB.remove(event.row.id);
+                    if (typeof res === 'undefined') {
+                        $.results.deleteRow(event.row); 
+                    } else if (res === 42) {
+                        alert('Impossible de supprimer le code de suivi !');
+                    }
+                }
+            }
         },
         
         /**
@@ -88,28 +109,21 @@ var DB = Alloy.Globals.libs.DBmanager,
          */
         swipeAction: function (event) {
             "use strict";
-            // Right swipe = delete
             var data, i;
-            /*if (event.direction === 'right') {
-                manage.deletePackage(event);
-            }*/
-            // Left swipe = edit
-            /*if (event.direction === 'left') {
-                data = DB.fetch(event.row.id);
-                $.aliasEditInput.value = data[0].alias;
-                $.aliasEditInput.db_id = event.row.id;
-                $.modal_editCode.open();
-            }*/
             console.log(event.direction);
             switch (event.direction) {
                 case 'right':
                     manage.deletePackage(event);
                 break;
                 case 'left':
-                    data = DB.fetch(event.row.id);
-                    $.aliasEditInput.value = data[0].alias;
-                    $.aliasEditInput.db_id = event.row.id;
-                    $.modal_editCode.open();
+                if (typeof event.row !== 'undefined') {
+                    if (typeof event.row.id !== 'undefined') {
+                        data = DB.fetch(event.row.id);
+                        $.aliasEditInput.value = data[0].alias;
+                        $.aliasEditInput.db_id = event.row.id;
+                        $.modal_editCode.open();
+                    }
+                }
                 break;
                 case 'up':
                     console.log('up swipe');
@@ -121,9 +135,18 @@ var DB = Alloy.Globals.libs.DBmanager,
         },
         cleanDb: function (event) {
             "use strict";
-            DB.reset();
-            DB.initialize();
-            manage.getList(true);
+            var reset = DB.reset(),
+                init;
+            if (typeof reset === 'undefined') {
+               init = DB.initialize();
+               if (typeof init === 'undefined') {
+                   manage.getList(true);
+               } else {
+                   alert('Impossible de réinitialiser vos suivis !');
+               }
+            } else {
+                alert('Impossible de réinitialiser vos suivis !');
+            }
         }
     };
     

@@ -4,7 +4,7 @@
     <name>ExpressTrack</name>
     <version>1.0.0</version>
     <publisher>not specified</publisher>
-    <url>www.expresstrack.io</url>
+    <url>http://www.expresstrack.io</url>
     <description>not specified</description>
     <copyright>Yanis Adoui</copyright>
     <icon>appicon.png</icon>
@@ -47,7 +47,9 @@
         </splash>
         <theme>default</theme>
     </mobileweb>
-    <modules/>
+    <modules>
+        <module platform="android">ti.map</module>
+    </modules>
     <deployment-targets>
         <target device="iphone">false</target>
         <target device="ipad">false</target>
