@@ -1,8 +1,5 @@
 <Alloy>
 	<TabGroup>
-        <Menu id="menu" platform="android">
-            <MenuItem id="resetButton" title="Réinitialiser" />
-        </Menu>
 		<Tab title="Gestion des suivis">
 			<Require type="view" src="window/managePackage" />
 		</Tab>
