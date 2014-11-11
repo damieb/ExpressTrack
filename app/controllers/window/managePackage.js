@@ -53,14 +53,13 @@ var DB = Alloy.Globals.libs.DBmanager,
                 id : $.aliasEditInput.db_id
             },
             res = DB.save(data);
-            console.log(res);
             if (res === 42) {
-                alert('Vérifier vos informations !');
+                alert('Vérifiez vos informations !');
             } else if (typeof res === 'undefined') {
                 $.modal_editCode.close();
                 manage.getList(true);
             } else {
-                alert('Vérifier vos informations !');
+                alert('Vérifiez vos informations !');
             }
         },
         
@@ -82,7 +81,7 @@ var DB = Alloy.Globals.libs.DBmanager,
                 $.modal_addCode.close();
                 manage.getList(true);
             } else {
-                alert('Vérifier vos informations !');
+                alert('Vérifiez vos informations !');
             }
         },
         
