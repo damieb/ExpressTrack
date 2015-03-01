@@ -12,7 +12,7 @@ ExpressTrack makes it possible to track packages and deliveries easily from your
 * And other features ;)
 
 ## Authors
-- [Yanis Adoui](https://twitter.com/yanisadoui)
+- [Yanis A.](https://github.com/solikate)
 - [Damien Lehericy](https://github.com/damieb)
 
 ## Credits
